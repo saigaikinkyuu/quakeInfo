@@ -60,7 +60,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     shingenIcon.on('mouseout', function (e) {this.closePopup();});
 
             // data 内の Pref をループ
-            $.each(data.Body.Intensity.Observation, function(prefIndex, pref) {
+            $.each(data.Body.Intensity.Observation.Pref, function(prefIndex, pref) {
                 // Pref 内の Area をループ
                 $.each(pref.Area, function(areaIndex, area) {
                     // Area 内の City をループ
@@ -78,20 +78,6 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                     });
                 });
             });
-
-
-    // Update the map with the modified geojson data
-    L.geoJson(data, {
-        style: function(feature) {
-            return {
-                fillColor: feature.properties.fillColor,
-                fillOpacity: feature.properties.fillOpacity,
-                color: '#ffffff',
-                weight: 1.5,
-                opacity: 1
-            };
-        }
-    }).addTo(map);
 });
     
 })
