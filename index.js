@@ -17,7 +17,7 @@ $.getJSON("./prefectures.geojson", function (data) {
 });
 $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (data) {
     var json_url = data[0]['json']
-}
+})
 
 $.getJSON("https://www.jma.go.jp/bosai/quake/data/" + json_url + ".json", function (data) {
     function formatDate(date) {
