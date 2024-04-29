@@ -60,7 +60,8 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                                 iconUrl: 'source/' + station.Int + '.png',
                                 iconSize: [18, 18],
                                 iconAnchor: [9, 9],
-                                popupAnchor: [0, -18]
+                                popupAnchor: [0, -18],
+                                zIndexOffset: 10
                             });
                             var marker = L.marker(markerL, { icon: markerIcon }).addTo(map);
                             // 地図にマーカーを追加
@@ -76,7 +77,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
         iconSize: [40, 40],
         iconAnchor: [20, 20],
         popupAnchor: [0, -40],
-        zIndexOffset: 1000
+        zIndexOffset: 10000
     });
     var shingenIcon = L.marker(shingenLatLng, {icon: shingenIconImage }).addTo(map);
     shingenIcon.bindPopup('発生時刻：'+Time+'<br>最大震度：'+maxIntText+'<br>震源地：'+Name+'<span style=\"font-size: 85%;\"> ('+latitude+", "+longitude+')</span><br>規模：M'+Magnitude+'　深さ：'+Depth+'<br>受信：'+issueTime+', '+data['Control']['EditorialOffice'],{closeButton: false, zIndexOffset: 10000, maxWidth: 10000});
