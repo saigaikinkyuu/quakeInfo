@@ -68,8 +68,8 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                         // City 内の IntensityStation をループ
                         $.each(city.IntensityStation, function(stationIndex, station) {
                             console.log(station.latlon.lat + "" + station.latlon.lon)
-                            var shingenLatLng = new L.LatLng(station.latlon.lat, station.latlon.lon);
-                            var shingenIconImage = L.icon({
+                            var markerL = new L.LatLng(station.latlon.lat, station.latlon.lon);
+                            var marker = L.icon({
                                 iconUrl: 'source/' + maxInt_data + '.png',
                                 iconSize: [20, 20],
                                 iconAnchor: [20, 20],
