@@ -46,6 +46,29 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     var longitude = longitudeHypo[1]
     var issueTime = formatDate(new Date(data["Control"]["DateTime"]))
     console.log(latitude + "" + longitude)
+            // data 内の Pref をループ
+            $.each(data.Body.Intensity.Observation.Pref, function(prefIndex, pref) {
+                // Pref 内の Area をループ
+                $.each(pref.Area, function(areaIndex, area) {
+                    // Area 内の City をループ
+                    $.each(area.City, function(cityIndex, city) {
+                        // City 内の IntensityStation をループ
+                        $.each(city.IntensityStation, function(stationIndex, station) {
+                            console.log(station.latlon.lat + "" + station.latlon.lon)
+                            var markerL = new L.LatLng(station.latlon.lat, station.latlon.lon);
+                            var markerIcon = L.icon({
+                                iconUrl: 'source/' + station.Int + '.png',
+                                iconSize: [12, 12],
+                                iconAnchor: [20, 20],
+                                popupAnchor: [0, -40]
+                            });
+                            var marker = L.marker(markerL, { icon: markerIcon }).addTo(map);
+                            // 地図にマーカーを追加
+                            marker.addTo(map);
+                        });
+                    });
+                });
+            });
     
     var shingenLatLng = new L.LatLng(latitude, longitude);
     var shingenIconImage = L.icon({
@@ -59,29 +82,6 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     shingenIcon.on('mouseover', function (e) {this.openPopup();});
     shingenIcon.on('mouseout', function (e) {this.closePopup();});
 
-            // data 内の Pref をループ
-            $.each(data.Body.Intensity.Observation.Pref, function(prefIndex, pref) {
-                // Pref 内の Area をループ
-                $.each(pref.Area, function(areaIndex, area) {
-                    // Area 内の City をループ
-                    $.each(area.City, function(cityIndex, city) {
-                        // City 内の IntensityStation をループ
-                        $.each(city.IntensityStation, function(stationIndex, station) {
-                            console.log(station.latlon.lat + "" + station.latlon.lon)
-                            var markerL = new L.LatLng(station.latlon.lat, station.latlon.lon);
-                            var markerIcon = L.icon({
-                                iconUrl: 'source/' + station.Int + '.png',
-                                iconSize: [20, 20],
-                                iconAnchor: [20, 20],
-                                popupAnchor: [0, -40]
-                            });
-                            var marker = L.marker(markerL, { icon: markerIcon }).addTo(map);
-                            // 地図にマーカーを追加
-                            marker.addTo(map);
-                        });
-                    });
-                });
-            });
 });
     
 })
