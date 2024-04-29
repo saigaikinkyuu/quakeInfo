@@ -14,113 +14,85 @@ $.getJSON("./prefectures.geojson", function (data) {
     L.geoJson(data, {
         style: PolygonLayer_Style_nerv
     }).addTo(map);
+});
+$.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (data) {
+    var json_url = data[0]['json']
+}
 
-    $.getJSON("https://api.p2pquake.net/v2/history?codes=551", function (quakeData) {
-        var maxIntensity = quakeData[0]['earthquake']['maxScale'];
+$.getJSON("https://www.jma.go.jp/bosai/quake/data/" + json_url + ".json", function (data) {
+    function formatDate(date) {
+      var year = date.getFullYear();
+      var month = ('0' + (date.getMonth() + 1)).slice(-2); // 月を2桁にする
+      var day = ('0' + date.getDate()).slice(-2); // 日を2桁にする
+      var hours = ('0' + date.getHours()).slice(-2); // 時を2桁にする
+      var minutes = ('0' + date.getMinutes()).slice(-2); // 分を2桁にする
+      var seconds = ('0' + date.getSeconds()).slice(-2); // 秒を2桁にする
+      return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    }
+    let maxInt_data = data[0]['Body']['Intensity']['MaxInt'];
+    var maxIntText = maxInt_data == "1" ? "1" : maxInt_data == "2" ? "2" : maxInt_data == "3" ? "3" : maxInt_data == "4" ? "4" :
+                     maxInt_data == "5-" ? "5弱" : maxInt_data == "5+" ? "5強" : maxInt_data == "6-" ? "6弱" :
+                     maxInt_data == "6+" ? "6強" : maxInt_data == "7" ? "7" : "不明";
+    
+    var Magnitude = data[0]['Body']['Earthquake']['Magnitude']
+    var Name = data[0]['Body']['Earthquake']['Hypocenter']["Area"]["Name"] != "" ?
+               data[0]['Body']['Earthquake']['Hypocenter']["Area"]["Name"] : '情報なし';
+    var Hypo = data[0]['Body']['Earthquake']['Hypocenter']["Area"]["Coordinate"]
+    var DepthHypo = Hypo.match(/(\d+)\/$/);
+    var Depth = DepthHypo[1] / 1000
+    var tsunamiText = data[0]['Body']['Comments']["ForecastComment"]["Text"]
+    var Time = formatDate(new Date(data[0]['Body']['Earthquake']["2024-04-29T12:54:00+09:00"]));
+    var latitudeHypo = Hypo.match(/([-+]?\d+\.\d+)/);
+    var latitude = latitudeHypo[0]
+    var longitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
+    var longitude = longitudeHypo[1]
+    
+    var shingenLatLng = new L.LatLng(latitude, longitude);
+    var shingenIconImage = L.icon({
+        iconUrl: 'source/shingen.png',
+        iconSize: [40, 40],
+        iconAnchor: [20, 20],
+        popupAnchor: [0, -40]
+    });
+    var shingenIcon = L.marker(shingenLatLng, {icon: shingenIconImage }).addTo(map);
+    shingenIcon.bindPopup('発生時刻：'+Time+'<br>最大震度：'+maxIntText+'<br>震源地：'+Name+'<span style=\"font-size: 85%;\"> ('+data[0]["earthquake"]["hypocenter"]["latitude"]+", "+data[0]["earthquake"]["hypocenter"]["longitude"]+')</span><br>規模：M'+Magnitude+'　深さ：'+Depth+'<br>受信：'+data[0]['issue']['time']+', '+data[0]['issue']['source'],{closeButton: false, zIndexOffset: 10000, maxWidth: 10000});
+    shingenIcon.on('mouseover', function (e) {this.openPopup();});
+    shingenIcon.on('mouseout', function (e) {this.closePopup();});
 
-        var maxIntensityText = '';
-        switch (maxIntensity) {
-            case 10:
-                maxIntensityText = "1";
-                break;
-            case 20:
-                maxIntensityText = "2";
-                break;
-            case 30:
-                maxIntensityText = "3";
-                break;
-            case 40:
-                maxIntensityText = "4";
-                break;
-            case 45:
-            case 46:
-                maxIntensityText = "5弱";
-                break;
-            case 50:
-                maxIntensityText = "5強";
-                break;
-            case 55:
-                maxIntensityText = "6弱";
-                break;
-            case 60:
-                maxIntensityText = "6強";
-                break;
-            case 70:
-                maxIntensityText = "7";
-                break;
-            default:
-                maxIntensityText = "不明";
-        }
-
-        var magnitude = quakeData[0]['earthquake']['hypocenter']['magnitude'] != -1 ?
-                        quakeData[0]['earthquake']['hypocenter']['magnitude'].toFixed(1) : 'ー.ー';
-        var name = quakeData[0]['earthquake']['hypocenter']['name'] != "" ?
-                   quakeData[0]['earthquake']['hypocenter']['name'] : '情報なし';
-        var depth = quakeData[0]['earthquake']['hypocenter']['depth'] != -1 ?
-                    "約" + quakeData[0]['earthquake']['hypocenter']['depth'] + "km" : '不明';
-        var tsunamiText = quakeData[0]['earthquake']['domesticTsunami'] == "None" ? "なし" :
-                          quakeData[0]['earthquake']['domesticTsunami'] == "Unknown" ? "不明" :
-                          quakeData[0]['earthquake']['domesticTsunami'] == "Checking" ? "調査中" :
-                          quakeData[0]['earthquake']['domesticTsunami'] == "NonEffective" ? "若干の海面変動" :
-                          quakeData[0]['earthquake']['domesticTsunami'] == "Watch" ? "津波注意報" :
-                          quakeData[0]['earthquake']['domesticTsunami'] == "Warning" ? "津波警報" : "情報なし";
-        var time = quakeData[0]['earthquake']['time'];
-
-        var shingenLatLng = new L.LatLng(quakeData[0]["earthquake"]["hypocenter"]["latitude"], quakeData[0]["earthquake"]["hypocenter"]["longitude"]);
-        var shingenIconImage = L.icon({
-            iconUrl: 'source/shingen.png',
-            iconSize: [40, 40],
-            iconAnchor: [20, 20],
-            popupAnchor: [0, -40]
-        });
-        var shingenIcon = L.marker(shingenLatLng, {icon: shingenIconImage }).addTo(map);
-        shingenIcon.bindPopup('発生時刻：'+time+'<br>最大震度：'+maxIntensityText+'<br>震源地：'+name+'<span style=\"font-size: 85%;\"> ('+quakeData[0]["earthquake"]["hypocenter"]["latitude"]+", "+quakeData[0]["earthquake"]["hypocenter"]["longitude"]+')</span><br>規模：M'+magnitude+'　深さ：'+depth+'<br>受信：'+quakeData[0]['issue']['time']+', '+quakeData[0]['issue']['source'],{closeButton: false, zIndexOffset: 10000, maxWidth: 10000});
-        shingenIcon.on('mouseover', function (e) {this.openPopup();});
-        shingenIcon.on('mouseout', function (e) {this.closePopup();});
-
-        // Add coloring based on seismic intensity to prefectures.geojson
-        $.each(quakeData[0]['points'], function(index, point) {
-            var prefectureCode = point['pref'];
-            var seismicIntensity = point['scale'];
-
-            // Define colors based on seismic intensity
-            var color = '';
-            switch (seismicIntensity) {
-                case 10:
-                    color = 'red';
-                    break;
-                case 20:
-                    color = 'orange';
-                    break;
-                case 30:
-                    color = 'yellow';
-                    break;
-                // Add more cases as needed for other seismic intensities
-                default:
-                    color = 'gray';
-            }
-
-            // Find the corresponding prefecture in the geojson data and update its style
-            $.each(data.features, function(index, feature) {
-                if (feature.properties.pref === prefectureCode) {
-                    feature.properties['fillColor'] = color;
-                    feature.properties['fillOpacity'] = 0.5; // Adjust opacity as needed
-                    return false; // Exit loop once the prefecture is found
-                }
+    // Add coloring based on seismic intensity to prefectures.geojson
+    $.getJSON(jsonURL, function(data) {
+            // data 内の Pref をループ
+            $.each(data.Intensity, function(prefIndex, pref) {
+                // Pref 内の Area をループ
+                $.each(pref.Area, function(areaIndex, area) {
+                    // Area 内の City をループ
+                    $.each(area.City, function(cityIndex, city) {
+                        // City 内の IntensityStation をループ
+                        $.each(city.IntensityStation, function(stationIndex, station) {
+                            var shingenLatLng = new L.LatLng(station.latlon[0], station.latlon[1]);
+                            var shingenIconImage = L.icon({
+                                iconUrl: 'source/' + maxInt_data + '.png',
+                                iconSize: [20, 20],
+                                iconAnchor: [20, 20],
+                                popupAnchor: [0, -40]
+                            });
+                        });
+                    });
+                });
             });
         });
 
-        // Update the map with the modified geojson data
-        L.geoJson(data, {
-            style: function(feature) {
-                return {
-                    fillColor: feature.properties.fillColor,
-                    fillOpacity: feature.properties.fillOpacity,
-                    color: '#ffffff',
-                    weight: 1.5,
-                    opacity: 1
-                };
-            }
-        }).addTo(map);
-    });
+
+    // Update the map with the modified geojson data
+    L.geoJson(data, {
+        style: function(feature) {
+            return {
+                fillColor: feature.properties.fillColor,
+                fillOpacity: feature.properties.fillOpacity,
+                color: '#ffffff',
+                weight: 1.5,
+                opacity: 1
+            };
+        }
+    }).addTo(map);
 });
