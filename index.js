@@ -72,7 +72,7 @@ $.getJSON("https://api.p2pquake.net/v2/history?codes=551", function (data) {
 
         // Find the corresponding prefecture in the geojson data and update its style
         $.each(data.features, function(index, feature) {
-            if (feature.properties.name === prefectureName) {
+            if (feature.properties.pref === prefectureName) {
                 feature.properties['fillColor'] = color;
                 feature.properties['fillOpacity'] = 0.5; // Adjust opacity as needed
             }
