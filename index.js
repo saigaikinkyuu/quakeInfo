@@ -44,6 +44,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     var latitude = latitudeHypo[0]
     var longitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
     var longitude = longitudeHypo[1]
+    var issueTime = formatDate(new Date(data["Control"]["DateTime"]))
     
     var shingenLatLng = new L.LatLng(latitude, longitude);
     var shingenIconImage = L.icon({
@@ -53,7 +54,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
         popupAnchor: [0, -40]
     });
     var shingenIcon = L.marker(shingenLatLng, {icon: shingenIconImage }).addTo(map);
-    shingenIcon.bindPopup('発生時刻：'+Time+'<br>最大震度：'+maxIntText+'<br>震源地：'+Name+'<span style=\"font-size: 85%;\"> ('+data[0]["earthquake"]["hypocenter"]["latitude"]+", "+data[0]["earthquake"]["hypocenter"]["longitude"]+')</span><br>規模：M'+Magnitude+'　深さ：'+Depth+'<br>受信：'+data[0]['issue']['time']+', '+data[0]['issue']['source'],{closeButton: false, zIndexOffset: 10000, maxWidth: 10000});
+    shingenIcon.bindPopup('発生時刻：'+Time+'<br>最大震度：'+maxIntText+'<br>震源地：'+Name+'<span style=\"font-size: 85%;\"> ('+latitude+", "+longitude+')</span><br>規模：M'+Magnitude+'　深さ：'+Depth+'<br>受信：'+issueTime+', '+data['Control']['EditorialOffice'],{closeButton: false, zIndexOffset: 10000, maxWidth: 10000});
     shingenIcon.on('mouseover', function (e) {this.openPopup();});
     shingenIcon.on('mouseout', function (e) {this.closePopup();});
 
