@@ -59,8 +59,8 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                             var markerIcon = L.icon({
                                 iconUrl: 'source/' + station.Int + '.png',
                                 iconSize: [18, 18],
-                                iconAnchor: [20, 20],
-                                popupAnchor: [0, -40]
+                                iconAnchor: [9, 9],
+                                popupAnchor: [0, -18]
                             });
                             var marker = L.marker(markerL, { icon: markerIcon }).addTo(map);
                             // 地図にマーカーを追加
