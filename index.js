@@ -27,7 +27,8 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
       var seconds = ('0' + date.getSeconds()).slice(-2); // 秒を2桁にする
       return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
     }
-    let maxInt_data = data[0]['Body']['Intensity']['MaxInt'];
+        console.log(data[0])
+    let maxInt_data = data[0]['Body']['Intensity']["Observation"]['MaxInt'];
     var maxIntText = maxInt_data == "1" ? "1" : maxInt_data == "2" ? "2" : maxInt_data == "3" ? "3" : maxInt_data == "4" ? "4" :
                      maxInt_data == "5-" ? "5弱" : maxInt_data == "5+" ? "5強" : maxInt_data == "6-" ? "6弱" :
                      maxInt_data == "6+" ? "6強" : maxInt_data == "7" ? "7" : "不明";
