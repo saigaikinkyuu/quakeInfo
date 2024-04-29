@@ -45,6 +45,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     var longitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
     var longitude = longitudeHypo[1]
     var issueTime = formatDate(new Date(data["Control"]["DateTime"]))
+    console.log(latitude + "" + longitude)
     
     var shingenLatLng = new L.LatLng(latitude, longitude);
     var shingenIconImage = L.icon({
