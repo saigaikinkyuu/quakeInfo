@@ -27,20 +27,19 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
       var seconds = ('0' + date.getSeconds()).slice(-2); // 秒を2桁にする
       return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
     }
-        console.log(data[0])
-    let maxInt_data = data[0]['Body']['Intensity']["Observation"]['MaxInt'];
+    let maxInt_data = data['Body']['Intensity']["Observation"]['MaxInt'];
     var maxIntText = maxInt_data == "1" ? "1" : maxInt_data == "2" ? "2" : maxInt_data == "3" ? "3" : maxInt_data == "4" ? "4" :
                      maxInt_data == "5-" ? "5弱" : maxInt_data == "5+" ? "5強" : maxInt_data == "6-" ? "6弱" :
                      maxInt_data == "6+" ? "6強" : maxInt_data == "7" ? "7" : "不明";
     
-    var Magnitude = data[0]['Body']['Earthquake']['Magnitude']
-    var Name = data[0]['Body']['Earthquake']['Hypocenter']["Area"]["Name"] != "" ?
-               data[0]['Body']['Earthquake']['Hypocenter']["Area"]["Name"] : '情報なし';
-    var Hypo = data[0]['Body']['Earthquake']['Hypocenter']["Area"]["Coordinate"]
+    var Magnitude = data['Body']['Earthquake']['Magnitude']
+    var Name = data['Body']['Earthquake']['Hypocenter']["Area"]["Name"] != "" ?
+               data['Body']['Earthquake']['Hypocenter']["Area"]["Name"] : '情報なし';
+    var Hypo = data['Body']['Earthquake']['Hypocenter']["Area"]["Coordinate"]
     var DepthHypo = Hypo.match(/(\d+)\/$/);
     var Depth = DepthHypo[1] / 1000
-    var tsunamiText = data[0]['Body']['Comments']["ForecastComment"]["Text"]
-    var Time = formatDate(new Date(data[0]['Body']['Earthquake']["2024-04-29T12:54:00+09:00"]));
+    var tsunamiText = data['Body']['Comments']["ForecastComment"]["Text"]
+    var Time = formatDate(new Date(data['Body']['Earthquake']["2024-04-29T12:54:00+09:00"]));
     var latitudeHypo = Hypo.match(/([-+]?\d+\.\d+)/);
     var latitude = latitudeHypo[0]
     var longitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
@@ -58,10 +57,8 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     shingenIcon.on('mouseover', function (e) {this.openPopup();});
     shingenIcon.on('mouseout', function (e) {this.closePopup();});
 
-    // Add coloring based on seismic intensity to prefectures.geojson
-    $.getJSON(jsonURL, function(data) {
             // data 内の Pref をループ
-            $.each(data.Intensity, function(prefIndex, pref) {
+            $.each(data.Body.Intensity.Observation, function(prefIndex, pref) {
                 // Pref 内の Area をループ
                 $.each(pref.Area, function(areaIndex, area) {
                     // Area 内の City をループ
@@ -79,7 +76,6 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                     });
                 });
             });
-        });
 
 
     // Update the map with the modified geojson data
