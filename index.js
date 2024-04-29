@@ -19,7 +19,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (data) {
     var json_url = data[0]['json']
 })
 
-$.getJSON("https://www.jma.go.jp/bosai/quake/data/" + json_url + ".json", function (data) {
+$.getJSON("https://www.jma.go.jp/bosai/quake/data/" + json_url, function (data) {
     function formatDate(date) {
       var year = date.getFullYear();
       var month = ('0' + (date.getMonth() + 1)).slice(-2); // 月を2桁にする
