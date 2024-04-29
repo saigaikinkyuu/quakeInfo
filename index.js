@@ -40,8 +40,8 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     var Depth = DepthHypo[1]
     var tsunamiText = data['Body']['Comments']["ForecastComment"]["Text"]
     var Time = formatDate(new Date(data['Body']['Earthquake']["2024-04-29T12:54:00+09:00"]));
-    var latitudeHypo = Hypo.match(/([-+]?\d+\.\d+)/);
-    var latitude = (latitudeHypo[0]).replace("+","")
+    var latitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
+    var latitude = latitudeHypo[1]
     var longitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
     var longitude = longitudeHypo[1]
     var issueTime = formatDate(new Date(data["Control"]["DateTime"]))
@@ -67,7 +67,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                     $.each(area.City, function(cityIndex, city) {
                         // City 内の IntensityStation をループ
                         $.each(city.IntensityStation, function(stationIndex, station) {
-                            var shingenLatLng = new L.LatLng(station.latlon[0], station.latlon[1]);
+                            var shingenLatLng = new L.LatLng(station.latlon.lat, station.latlon.lon);
                             var shingenIconImage = L.icon({
                                 iconUrl: 'source/' + maxInt_data + '.png',
                                 iconSize: [20, 20],
