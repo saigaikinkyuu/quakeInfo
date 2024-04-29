@@ -42,7 +42,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     var Time = formatDate(new Date(data['Body']['Earthquake']["2024-04-29T12:54:00+09:00"]));
     var latitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
     var latitude = latitudeHypo[1]
-    var longitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
+    var longitudeHypo = Hypo.match(/\+(\d+\.\d+)/g);
     var longitude = longitudeHypo[2]
     var issueTime = formatDate(new Date(data["Control"]["DateTime"]))
     console.log(latitude + "" + longitude)
