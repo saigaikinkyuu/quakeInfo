@@ -1,22 +1,40 @@
-var map = L.map('map').setView([36.575, 137.984], 6);
-L.control.scale({ maxWidth: 150, position: 'bottomright', imperial: false }).addTo(map);
-map.zoomControl.setPosition('topright');
-
-var PolygonLayer_Style_nerv = {
-    "color": "#ffffff",
-    "weight": 1.5,
-    "opacity": 1,
-    "fillColor": "#3a3a3a",
-    "fillOpacity": 1
+// 震度に基づいた色の設定
+function getColor(scale) {
+    return scale >= 70 ? '#800026' :
+           scale >= 60 ? '#BD0026' :
+           scale >= 55 ? '#E31A1C' :
+           scale >= 50 ? '#FC4E2A' :
+           scale >= 46 ? '#FD8D3C' :
+           scale >= 45 ? '#FEB24C' :
+           scale >= 40 ? '#FED976' :
+           scale >= 30 ? '#FFEDA0' :
+           scale >= 20 ? '#FFFFCC' :
+                        '#FFFFFF';
 }
 
-$.getJSON("./prefectures.geojson", function (data) {
-    L.geoJson(data, {
-        style: PolygonLayer_Style_nerv
-    }).addTo(map);
-});
-
 $.getJSON("https://api.p2pquake.net/v2/history?codes=551", function (data) {
+    // p2pquakeのJSONから都道府県ごとの震度を取得
+    var prefectures = data[0].points;
+
+    // 各都道府県の震度を地図上に表示
+    for (var i = 0; i < prefectures.length; i++) {
+        var prefecture = prefectures[i];
+        var scale = prefecture.scale;
+        var fillColor = getColor(scale);
+
+        // 都道府県の座標を取得
+        var prefectureCoords = prefectureCoordsList[prefecture.pref];
+        
+        // 震度に応じた色付きの円を作成し、地図に追加
+        var circle = L.circle([prefectureCoords.lat, prefectureCoords.lng], {
+            color: 'none',
+            fillColor: fillColor,
+            fillOpacity: 0.5,
+            radius: 5000 // 円の半径は適宜調整してください
+        }).addTo(map);
+    }
+
+    // 以下は既存の地図アイコンの追加コードです
     let maxInt_data = data[0]['earthquake']['maxScale'];
     var maxIntText = maxInt_data == 10 ? "1" : maxInt_data == 20 ? "2" : maxInt_data == 30 ? "3" : maxInt_data == 40 ? "4" :
                      maxInt_data == 45 ? "5弱" : maxInt_data == 46 ? "5弱" : maxInt_data == 50 ? "5強" : maxInt_data == 55 ? "6弱" :
@@ -36,7 +54,6 @@ $.getJSON("https://api.p2pquake.net/v2/history?codes=551", function (data) {
                       data[0]['earthquake']['domesticTsunami'] == "Warning" ? "津波警報" : "情報なし";
     var Time = data[0]['earthquake']['time'];
     
-
     var shingenLatLng = new L.LatLng(data[0]["earthquake"]["hypocenter"]["latitude"], data[0]["earthquake"]["hypocenter"]["longitude"]);
     var shingenIconImage = L.icon({
         iconUrl: 'source/shingen.png',
