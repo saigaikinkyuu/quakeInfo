@@ -16,7 +16,12 @@ $.getJSON("./prefectures.geojson", function (data) {
     }).addTo(map);
 });
 $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
-    var json_url = datas[2]['json']
+    var json_url = ""
+    for (var i = 0; i < array.length; i++) {
+        if(datas[i].ttl === "震源・震度情報"){
+            json_url = datas[i]['json']
+        }
+    }
     $.getJSON("https://www.jma.go.jp/bosai/quake/data/" + json_url, function (data) {
     function formatDate(date) {
       var year = date.getFullYear();
@@ -53,9 +58,8 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                     // Area 内の City をループ
                     $.each(area.City, function(cityIndex, city) {
                         // City 内の IntensityStation をループ
-                        $.each(city.IntensityStation, function(stationIndex, station) {
-                            console.log(station.latlon.lat + "" + station.latlon.lon)
-                            var markerL = new L.LatLng(station.latlon.lat, station.latlon.lon);
+                            console.log(city.IntensityStation[0].latlon.lat + "" + city.IntensityStation[0].latlon.lon)
+                            var markerL = new L.LatLng(city.IntensityStation[0].latlon.lat, city.IntensityStation[0].latlon.lon);
                             var markerIcon = L.icon({
                                 iconUrl: 'source/' + station.Int + '.png',
                                 iconSize: [18, 18],
@@ -66,7 +70,6 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                             var marker = L.marker(markerL, { icon: markerIcon }).addTo(map);
                             // 地図にマーカーを追加
                             marker.addTo(map);
-                        });
                     });
                 });
             });
