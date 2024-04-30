@@ -61,7 +61,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                             console.log(city.IntensityStation[0].latlon.lat + "" + city.IntensityStation[0].latlon.lon)
                             var markerL = new L.LatLng(city.IntensityStation[0].latlon.lat, city.IntensityStation[0].latlon.lon);
                             var markerIcon = L.icon({
-                                iconUrl: 'source/' + station.Int + '.png',
+                                iconUrl: 'source/' + city.IntensityStation[0].Int + '.png',
                                 iconSize: [18, 18],
                                 iconAnchor: [9, 9],
                                 popupAnchor: [0, -18],
