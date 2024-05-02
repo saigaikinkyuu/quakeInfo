@@ -18,8 +18,14 @@ fetch('https://www.jma.go.jp/bosai/quake/data/list.json')
         p_element.setAttribute("id", "list_p");
         img_element.setAttribute("id", "list_img");
         div_element.setAttribute("id", "list_div");
-        div_element.setAttribute("onclick", "chengeMap("+i+")");
-        img_element.setAttribute("src", "source/"+maxi+".png");
+        if(maxi !== ""){
+          div_element.setAttribute("onclick", "chengeMap("+i+")");
+        }
+        if(maxi !== ""){
+          img_element.setAttribute("src", "source/"+maxi+".png");
+        }else {
+          img_element.setAttribute("src", "source/不明.png");
+        }
         p_element.innerHTML = '<span style="font-size: 70%;">'+at+'</span><br>'+anm+'<br><span style="font-size: 60%;">マグニチュード：'+mag+' 震度：'+maxi+'</span>';
         list.appendChild(div_element);
         div_element.appendChild(p_element);
