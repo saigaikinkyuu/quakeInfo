@@ -1,4 +1,6 @@
-var map = L.map('map', {
+var map
+function map(num){
+map = L.map('map', {
     zoomControl: false
 })
 L.control.scale({ maxWidth: 150, position: 'bottomright', imperial: false }).addTo(map);
@@ -18,11 +20,15 @@ $.getJSON("./prefectures.geojson", function (data) {
 });
 $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     var json_url = ""
+    if(num === "None"){
     for (var i = 0; i < datas.length; i++) {
         if(datas[i].ttl === "震源・震度情報"){
             json_url = datas[i]['json']
             i = datas.length
         }
+    }
+    }else {
+        json_url = datas[num]['json']
     }
     $.getJSON("https://www.jma.go.jp/bosai/quake/data/" + json_url, function (data) {
     function formatDate(date) {
@@ -97,3 +103,11 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
 });
     
 })
+}
+function chengeMap(i){
+    map.remove();
+    map(i)
+}
+function strt(){
+    map("None")
+}
