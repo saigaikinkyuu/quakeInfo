@@ -12,16 +12,19 @@ fetch('https://www.jma.go.jp/bosai/quake/data/list.json')
         var anm = data[i].anm
         var mag = data[i].mag
         var maxi = data[i].maxi
+        if(maxi === ""){
+          maxi = "--"
+        }
         let div_element = document.createElement('div');
         let p_element = document.createElement('p');
         let img_element = document.createElement('img');
         p_element.setAttribute("id", "list_p");
         img_element.setAttribute("id", "list_img");
         div_element.setAttribute("id", "list_div");
-        if(maxi !== ""){
+        if(maxi !== "--"){
           div_element.setAttribute("onclick", "chengeMap("+i+")");
         }
-        if(maxi !== ""){
+        if(maxi !== "--"){
           img_element.setAttribute("src", "source/"+maxi+".png");
         }else {
           img_element.setAttribute("src", "source/不明.png");
