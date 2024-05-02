@@ -1,4 +1,6 @@
-var map = L.map('map')
+var map = L.map('map', {
+    zoomControl: false;
+})
 L.control.scale({ maxWidth: 150, position: 'bottomright', imperial: false }).addTo(map);
 map.zoomControl.setPosition('topright');
 
