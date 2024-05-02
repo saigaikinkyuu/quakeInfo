@@ -20,7 +20,7 @@ fetch('https://www.jma.go.jp/bosai/quake/data/list.json')
         div_element.setAttribute("id", "list_div");
         div_element.setAttribute("onclick", "chengeMap("+i+")");
         img_element.setAttribute("src", "source/"+maxi+".png");
-        p_element.innerHTML = anm+'<br><span style"font-size: 30%;">マグニチュード：'+mag+' 震度：'+maxi+'</span>';
+        p_element.innerHTML = '<span style="font-size: 70%;">'+at+'</span><br>'anm+'<br><span style="font-size: 30%;">マグニチュード：'+mag+' 震度：'+maxi+'</span>';
         list.appendChild(div_element);
         div_element.appendChild(p_element);
         div_element.appendChild(img_element);
