@@ -20,6 +20,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     for (var i = 0; i < datas.length; i++) {
         if(datas[i].ttl === "震源・震度情報"){
             json_url = datas[i]['json']
+            i = datas.length
         }
     }
     $.getJSON("https://www.jma.go.jp/bosai/quake/data/" + json_url, function (data) {
