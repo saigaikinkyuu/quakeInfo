@@ -1,4 +1,4 @@
-var map = L.map('map').setView([36.575, 137.984], 6);
+var map = L.map('map')
 L.control.scale({ maxWidth: 150, position: 'bottomright', imperial: false }).addTo(map);
 map.zoomControl.setPosition('topright');
 
@@ -84,6 +84,8 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
         zIndexOffset: 10000
     });
     var shingenIcon = L.marker(shingenLatLng, {icon: shingenIconImage }).addTo(map);
+    var initialLatLng = L.latLng(latitude, longitude);
+    map.setView(initialLatLng, 8);
     shingenIcon.bindPopup('発生時刻：'+Time+'<br>最大震度：'+maxIntText+'<br>震源地：'+Name+'<span style=\"font-size: 85%;\"> ('+latitude+", "+longitude+')</span><br>規模：M'+Magnitude+'　深さ：'+Depth+'<br>受信：'+issueTime+', '+data['Control']['EditorialOffice'],{closeButton: false, zIndexOffset: 10000, maxWidth: 10000});
     shingenIcon.on('mouseover', function (e) {this.openPopup();});
     shingenIcon.on('mouseout', function (e) {this.closePopup();});
