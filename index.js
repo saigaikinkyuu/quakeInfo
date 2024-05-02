@@ -108,6 +108,7 @@ function chengeMap(i){
     map.remove();
     map(i)
 }
-function strt(){
+function start(){
     map("None")
 }
+start()
