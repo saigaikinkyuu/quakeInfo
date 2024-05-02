@@ -43,7 +43,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                data['Body']['Earthquake']['Hypocenter']["Area"]["Name"] : '情報なし';
     var Hypo = data['Body']['Earthquake']['Hypocenter']["Area"]["Coordinate"]
     var DepthHypo = Hypo.match(/(\d+)\/$/);
-    var Depth = DepthHypo[1]
+    var Depth = (DepthHypo[1]/1000) + "km"
     var tsunamiText = data['Body']['Comments']["ForecastComment"]["Text"]
     var Time = formatDate(new Date(data['Body']['Earthquake']["OriginTime"]));
     var latitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
