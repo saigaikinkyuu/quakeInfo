@@ -1,5 +1,5 @@
 var map
-function map(num){
+function mapDraw(num){
 map = L.map('map', {
     zoomControl: false
 })
@@ -106,9 +106,9 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
 }
 function chengeMap(i){
     map.remove();
-    map(i)
+    mapDraw(i)
 }
 function start(){
-    map("None")
+    mapDraw("None")
 }
 start()
