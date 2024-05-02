@@ -45,7 +45,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     var DepthHypo = Hypo.match(/(\d+)\/$/);
     var Depth = DepthHypo[1]
     var tsunamiText = data['Body']['Comments']["ForecastComment"]["Text"]
-    var Time = formatDate(new Date(data['Body']['Earthquake']["2024-04-29T12:54:00+09:00"]));
+    var Time = formatDate(new Date(data['Body']['Earthquake']["OriginTime"]));
     var latitudeHypo = Hypo.match(/\+(\d+\.\d+)/);
     var latitude = latitudeHypo[1]
     var longitudeHypo = Hypo.match(/\+(\d+\.\d+)/g);
