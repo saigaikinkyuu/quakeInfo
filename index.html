@@ -155,27 +155,12 @@
     document.getElementById("takePicture").addEventListener("click", function(event) {
         event.preventDefault(); // デフォルトのクリック動作を無効化
         
-    var element = document.body;
-    
-    // setting_MAP要素を一時的に非表示にする
-    var setting_MAP = document.getElementById("setting_MAP");
-    setting_MAP.style.display = "none";
-
-    setTimeout(function() {
-        html2canvas(element, {
-            onrendered: function(canvas) {
-                var imgData = canvas.toDataURL('image/png');
-                
-            // ダウンロード用リンクの作成
-            var link = document.getElementById("screenshot");
-            link.download = 'screenshot.png';
-            link.href = imgData;
-            link.click();
-            
-            // setting_MAP要素を元に戻す
-            setting_MAP.style.display = "block";
-        }});
-    }, 10000); // 1秒待ってからスクリーンショットを撮る）
+      html2canvas(document.body,{
+        onrendered: function(canvas){
+          //aタグのhrefにキャプチャ画像のURLを設定
+          document.getElementById("screenshot").href = canvas.toDataURL("image/png");
+        }
+      });
     })
     </script>
 
