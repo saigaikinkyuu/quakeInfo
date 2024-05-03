@@ -82,9 +82,8 @@
     height: 700px;
     overflow: scroll;
     right: 0px;
-    width: 300px;
-    bottom: 15px;">
-        <div id="headHistry" style="
+    width: 300px;">
+        <div style="
     position: sticky;
     height: 77px;
     font-size: 50px;
@@ -185,12 +184,11 @@
           ua.indexOf("ipad") > -1 ||
           (ua.indexOf("macintosh") > -1 && "ontouchend" in document)
         ) {
-            alert("成功!!")
             document.getElementById("infomation").style.bottom = "393px"
-            document.getElementById("setting_MAP").style.width = "72%"
-            document.getElementById("headHistry").style.top = "5px";
+            document.getElementById("setting_MAP").style.width = "72.5%"
+            document.getElementById("headHistry").style.bottom = "10px";
         }else {
-            document.getElementById("headHistry").style.top = "0px";
+            document.getElementById("headHistry").style.bottom = "15px";
         }
     </script>
 
