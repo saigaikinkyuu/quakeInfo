@@ -156,25 +156,25 @@
         event.preventDefault(); // デフォルトのクリック動作を無効化
         
     var element = document.body;
-    var setting_MAP = document.getElementById("setting_MAP");
     
-    // 地図が描画されるのを待つ
+    // setting_MAP要素を一時的に非表示にする
+    var setting_MAP = document.getElementById("setting_MAP");
+    setting_MAP.style.display = "none";
+
     setTimeout(function() {
-        html2canvas(element, {
-            ignoreElements: function(node) {
-                return node.id === 'setting_MAP'; // setting_MAP要素を除外する
-            },
-            onrendered: function(canvas) {
-                var imgData = canvas.toDataURL('image/png');
-                
-                // ダウンロード用リンクの作成
-                var link = document.getElementById("screenshot");
-                link.download = 'screenshot.png';
-                link.href = imgData;
-                link.click();
-            }
+        html2canvas(element).then(function(canvas) {
+            var imgData = canvas.toDataURL('image/png');
+            
+            // ダウンロード用リンクの作成
+            var link = document.getElementById("screenshot");
+            link.download = 'screenshot.png';
+            link.href = imgData;
+            link.click();
+            
+            // setting_MAP要素を元に戻す
+            setting_MAP.style.display = "block";
         });
-    }, 1000); // 1秒待つ（適切な待機時間を設定する必要があります）
+    }, 10000); // 1秒待ってからスクリーンショットを撮る）
     })
     </script>
 
