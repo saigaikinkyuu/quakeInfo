@@ -186,16 +186,9 @@
 
         // iPadの場合は特定のスタイルを追加
         if (isiPad) {
-            var style = document.createElement('style');
-            style.innerHTML = `
-        #infomation{ 
-            bottom: 200px;  
-        }  
-        #setting_MAP{
-            width: 75%;    
-        }
-            `;
-            document.head.appendChild(style);
+            alert("成功！！")
+            document.getElementById("infomation").style.bottom = "200px"
+            document.getElementById("infomation").style.width = "75%"
         }
     </script>
 
