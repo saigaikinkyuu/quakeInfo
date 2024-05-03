@@ -42,6 +42,7 @@
             color: white;
         }
     </style>
+<div id="contentToScreenshot">
     <div id="map"></div>
     <div style="position: absolute;z-index: 10000;bottom: 600px;color: #00068d;background-color: white;padding: 4px;width: 200px;font-size: 35px;border: 4px solid #00068d;border-left-color: white;">
         <h3 style="margin: 0px;text-align: right;">震度分布</h3>
@@ -77,6 +78,7 @@
     top: 0px;
 ">地震履歴</div>
     </div>
+</div>
     <div id="setting_MAP" style="position: absolute;z-index: 10000;bottom: 0px;background-color: white;width: 80.5%;height: 60px;">
         <div style="display: flex;padding-top: 10px;">
     <lavel style="line-height: 40px;">地震履歴：</lavel><a id="histryON" class="on" data-swich="on" href="#" style="border-radius: 5px;margin-right: 10px;">表示</a><a id="histryOFF" class="off" data-swich="off" href="#" style="border-radius: 5px;">非表示</a><lavel style="line-height: 40px;margin-left: 10px;">地震情報：</lavel><a id="infoON" class="on" data-swich="on" href="#" style="border-radius: 5px;margin-right: 10px;">表示</a><a id="infoOFF" class="off" data-swich="off" href="#" style="border-radius: 5px;">非表示</a>
@@ -149,5 +151,24 @@
         }
     });
     </script>
+    <script>
+    function takeScreenshot() {
+        var element = document.getElementById("contentToScreenshot");
+    
+        html2canvas(element).then(function(canvas) {
+            var imgData = canvas.toDataURL('image/png');
+        
+            // ダウンロード用リンクの作成
+            var link = document.createElement('a');
+            link.download = '震度分布' + new Date().getFullYear() + ("0" + new Date().getMonth()).slice(-2) + ("0" + new Date().getDate()).slice(-2) + ("0" + new Date().getHours()).slice(-2) + ("0" + new Date().getMinutes()).slice(-2) + '.png';
+            link.href = imgData;
+            link.click();
+        });
+    }
+    </script>
+
+    <!-- html2canvasのスクリプトを読み込む -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
 </body>
 </html>
