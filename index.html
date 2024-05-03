@@ -162,9 +162,10 @@
     setting_MAP.style.display = "none";
 
     setTimeout(function() {
-        html2canvas(element).then(function(canvas) {
-            var imgData = canvas.toDataURL('image/png');
-            
+        html2canvas(element, {
+            onrendered: function(canvas) {
+                var imgData = canvas.toDataURL('image/png');
+                
             // ダウンロード用リンクの作成
             var link = document.getElementById("screenshot");
             link.download = 'screenshot.png';
