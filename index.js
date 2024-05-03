@@ -78,7 +78,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                             var marker = L.marker(markerL, { icon: markerIcon }).addTo(map);
                             // 地図にマーカーを追加
                             marker.addTo(map);
-                            marker.bindPopup(pref.Name+city.Name , '+data['Control']['EditorialOffice'],{closeButton: false, zIndexOffset: 10000, maxWidth: 10000})
+                            marker.bindPopup(pref.Name+city.Name,{closeButton: false, zIndexOffset: 10000, maxWidth: 10000})
                     });
                 });
             });
