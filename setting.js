@@ -10,6 +10,7 @@ document.getElementById("histryON").addEventListener("click", function(event) {
     element1.classList.toggle('off');
     element2.classList.toggle('on');
     element2.classList.toggle('off');
+    document.getElementById("infomation").style.display = "block"
   }
 });
 
@@ -25,6 +26,7 @@ document.getElementById("histryOFF").addEventListener("click", function(event) {
     element1.classList.toggle('off');
     element2.classList.toggle('on');
     element2.classList.toggle('off');
+    document.getElementById("infomation").style.display = "none"
   }
 });
 
@@ -40,6 +42,7 @@ document.getElementById("infoON").addEventListener("click", function(event) {
     element1.classList.toggle('off');
     element2.classList.toggle('on');
     element2.classList.toggle('off');
+    document.getElementById("list").style.display = "block"
   }
 });
 
@@ -55,5 +58,6 @@ document.getElementById("infoOFF").addEventListener("click", function(event) {
     element1.classList.toggle('off');
     element2.classList.toggle('on');
     element2.classList.toggle('off');
+    document.getElementById("list").style.display = "none"
   }
 });
