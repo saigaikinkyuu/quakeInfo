@@ -51,12 +51,6 @@
         .off{
             color: #00068d;
         }    
-        #infomation{ 
-            bottom: 200px;  
-        }  
-        #setting_MAP{
-            width: 75%;    
-        }
         @media only screen and (min-width: 1065px) {
             #infomation{
                 bottom: 410px;    
@@ -184,6 +178,25 @@
         }
       });
     })
+    </script>
+    
+    <script>
+        // JavaScriptを使用してiPadであるかどうかを判断
+        var isiPad = /iPad/.test(navigator.userAgent);
+
+        // iPadの場合は特定のスタイルを追加
+        if (isiPad) {
+            var style = document.createElement('style');
+            style.innerHTML = `
+        #infomation{ 
+            bottom: 200px;  
+        }  
+        #setting_MAP{
+            width: 75%;    
+        }
+            `;
+            document.head.appendChild(style);
+        }
     </script>
 
     <!-- html2canvasのスクリプトを読み込む -->
