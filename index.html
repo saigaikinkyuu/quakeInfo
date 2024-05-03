@@ -181,13 +181,11 @@
     </script>
     
     <script>
-        // JavaScriptを使用してiPadであるかどうかを判断
-        var isiPad = /iPad/.test(navigator.userAgent);
-        alert("実行")
-
-        // iPadの場合は特定のスタイルを追加
-        if (isiPad) {
-            alert("成功！！")
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (
+          ua.indexOf("ipad") > -1 ||
+          (ua.indexOf("macintosh") > -1 && "ontouchend" in document)
+        ) {
             document.getElementById("infomation").style.bottom = "200px"
             document.getElementById("infomation").style.width = "75%"
         }
