@@ -154,17 +154,19 @@
     <script>
     document.getElementById("takePicture").addEventListener("click", function(event) {
         event.preventDefault(); // デフォルトのクリック動作を無効化
-        var element = document.body;
-        var setting_MAP = document.getElementById("setting_MAP");
+        
+    var element = document.body;
+    var setting_MAP = document.getElementById("setting_MAP");
     
+    // 地図が描画されるのを待つ
+    setTimeout(function() {
         html2canvas(element, {
             ignoreElements: function(node) {
                 return node.id === 'setting_MAP'; // setting_MAP要素を除外する
             },
             onrendered: function(canvas) {
                 var imgData = canvas.toDataURL('image/png');
-            
-            
+                
                 // ダウンロード用リンクの作成
                 var link = document.getElementById("screenshot");
                 link.download = 'screenshot.png';
@@ -172,6 +174,7 @@
                 link.click();
             }
         });
+    }, 1000); // 1秒待つ（適切な待機時間を設定する必要があります）
     })
     </script>
 
