@@ -131,3 +131,4 @@ function drawMap(){
       }
     })
 }
+drawMap()
