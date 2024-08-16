@@ -13,6 +13,8 @@ function drawMap(){
     position: 'bottomright',
     imperial: false
   }).addTo(map);
+  var initialLatLng = L.latLng(36.00, 137.59);
+  map.setView(initialLatLng,6)
   fetch('https://www.jma.go.jp/bosai/tsunami/data/list.json')
     .then(response => response.json())
     .then(datas => {
