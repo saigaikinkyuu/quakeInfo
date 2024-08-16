@@ -39,7 +39,7 @@ function drawMap(){
 	      style: function(feature) {
 	        // areaDataに含まれない場合は、デフォルトのスタイルを適用
 		return {
-		  color: #c0c0c0",
+		  color: "#c0c0c0",
 		  weight: 1.5,
 		  opacity: 1,
 		  fillColor: "#c0c0c0",
