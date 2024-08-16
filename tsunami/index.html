@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>津波情報</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <style>
+        * {
+            font-family: "M PLUS 1 Code", monospace;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+        p#list_p {
+            background-color: #000000d1;
+            font-size: 27px;
+            margin: 0px;
+            width: 240px;
+        }
+        img#list_img {
+            width: 15%;
+            height: max-content;
+            margin-top: 35px;
+            margin-left: 5px;
+        }
+        div#list_div {
+            border: 4px solid white;
+            display: flex;
+            padding: 0px;
+            background-color: gray;
+            color: white;
+        }
+        #setting_MAP a{
+            text-decoration: none;
+            width: fit-content;
+            padding: 5px;
+        }
+        .on{
+            background-color: #ffffffc2;
+            color: black;
+            border: 4px solid #ffffff;
+        }
+        .off{
+            border: 4px solid #ffffff;
+            color: #ffffff;
+        }  
+        span#hanrei{
+            margin-top: 5px;
+            margin-left: 5px;
+            height: 20px;
+            width: 20px;
+            display: block;
+        }
+    </style>
+    <div id="map"></div>
+</body>
+</html>
