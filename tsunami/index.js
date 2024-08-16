@@ -49,7 +49,7 @@ function drawMap(){
 	    }).addTo(map);
 	  });
           for(var i = 0;i<forecast_items.length;i++){
-				     // areaDataに含まれる値のセットを作成
+	     // areaDataに含まれる値のセットを作成
              let color = ""
              if(forecast_items.Category.Kind.Name === "津波予報（若干の海面変動）"){
                color = "#00bfff"
@@ -87,14 +87,47 @@ function drawMap(){
             for(var n = 0;n < observation_items.length;n++){
               let stations = observation_items[n].Station
               for(var s = 0;s < stations.length;s++){
-                stations[s]
-                var marker = L.marker(new L.LatLng()).bindPopup('<b>Hello world!</b><br>I am a marker.').addTo(map);
+		let color = ""
+                if(Number(stations[s].MaxHeight.TsunamiHeight) < 0.2){
+		  color = "#00bfff"
+		}else if(Number(stations[s].MaxHeight.TsunamiHeight) < 3){
+		  color = "yellow"
+		}else if(Number(stations[s].MaxHeight.TsunamiHeight) < 5){
+		  color = "#ff0000"
+		}else if(Number(stations[s].MaxHeight.TsunamiHeight) >= 5){
+		  color = "#4b0082"
+		}
+		var markerL = new L.LatLng(stations[s].latlon.lat, stations[s].latlon.lon);
+		var marker = L.circleMarker(markerL, {
+		  radius: 6,
+		  color: "black",
+		  fillColor: color,
+		  fillOpacity: 0.2
+		}).addTo(map);
+		// 地図にマーカーを追加
+		marker.bindPopup("<div style='text-align: center;'>" + observation_items[n].Area.Name + stations[s].Name + "<br>第一波の状況：" + stations[s].FirstHeight.Condition + "<br>最大波(観測)：" + stations[s].MaxHeight.TsunamiHeight + "m (" + new Date(stations[s].MaxHeight.DateTime).getDate() + "日 " + new Date(stations[s].MaxHeight.DateTime).getHours() + "時" + new Date(stations[s].MaxHeight.DateTime).getMinutes() + "分)</div>", {
+		  closeButton: false,
+		  zIndexOffset: 10000,
+		  maxWidth: 10000
+		});
               }
             }
           }
+	  //↓↓震源の位置設定↓↓
+	    if(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) >= 18 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) <= 50 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10)) >= 130 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10)) <= 160){
+	    var shingenLatLng = new L.LatLng((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5), (data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10));
+	      var shingenIconImage = L.icon({
+	        iconUrl: '../source/shingen.png',
+	        iconSize: [40, 40],
+	        iconAnchor: [20, 20],
+	        popupAnchor: [0, -40],
+	        zIndexOffset: 10000
+	      });
+	    var shingenIcon = L.marker(shingenLatLng, {icon: shingenIconImage }).addTo(map);
+	    }
         })
       }else {
-        //
+        document.getElementById("Info_None").style.display = "block"
       }
     })
 }
