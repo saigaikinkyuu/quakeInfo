@@ -85,7 +85,7 @@ function drawMap(){
 	     }
           }
           if(pointFlag === true){
-            let observation_items = data.body.Tsunami.Observation.Item
+            let observation_items = data.Body.Tsunami.Observation.Item
             for(var n = 0;n < observation_items.length;n++){
               let stations = observation_items[n].Station
               for(var s = 0;s < stations.length;s++){
