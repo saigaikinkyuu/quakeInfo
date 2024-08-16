@@ -53,13 +53,13 @@ function drawMap(){
           for(var i = 0;i<forecast_items.length;i++){
 	     // areaDataに含まれる値のセットを作成
              let color = ""
-             if(forecast_items.Category.Kind.Name === "津波予報（若干の海面変動）"){
+             if(forecast_items[i].Category.Kind.Name === "津波予報（若干の海面変動）"){
                color = "#00bfff"
-             }else if(forecast_items.Category.Kind.Name === "津波注意報"){
+             }else if(forecast_items[i].Category.Kind.Name === "津波注意報"){
                color = "yellow"
-             }else if(forecast_items.Category.Kind.Name === "津波警報"){
+             }else if(forecast_items[i].Category.Kind.Name === "津波警報"){
                color = "#ff0000"
-             }else if(forecast_items.Category.Kind.Name === "大津波警報：発表"){
+             }else if(forecast_items[i].Category.Kind.Name === "大津波警報：発表"){
                color = "#4b0082"
              }else {
                color = "#4b0082"
