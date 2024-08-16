@@ -74,10 +74,10 @@ function drawMap(){
 		       fillColor: color,
 		       fillOpacity: 1
 		     };
-                     onEachFeature: function(feature, layer) {
-	               layer.bindPopup("<b>" + forecast_items[i].Area.Name + "</b><br>" + forecast_items[i].FirstHeight.Condition + "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m");
-	             }
 		 }
+		 onEachFeature: function (feature, layer) {
+		   layer.bindPopup("<b>" + forecast_items[i].Area.Name + "</b><br>" + forecast_items[i].FirstHeight.Condition + "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m");
+	         }
 	       }).addTo(map);
 	     });
 	     }
