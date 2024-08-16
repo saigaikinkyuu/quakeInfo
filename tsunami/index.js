@@ -65,6 +65,7 @@ function drawMap(){
                color = "#4b0082"
              }
              if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
+	     let content = "<b>" + forecast_items[i].Area.Name + "</b><br>" + forecast_items[i].FirstHeight.Condition + "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       L.geoJson(data, {
 	         style: function(feature) {
@@ -77,8 +78,8 @@ function drawMap(){
 		       fillOpacity: 1
 		     };
 		 },
-		 onEachFeature: function (feature, layer) {
-		   layer.bindPopup("<b>" + forecast_items[i].Area.Name + "</b><br>" + forecast_items[i].FirstHeight.Condition + "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m");
+		 onEachFeature: function (feature, layer, content) {
+		   layer.bindPopup(content);
 	         }
 	     }).addTo(map);
 	     });
