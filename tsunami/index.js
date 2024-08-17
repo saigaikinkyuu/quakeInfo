@@ -13,7 +13,7 @@ function firstMaxHeightContent(){
   if(forecast_items[num_first].MaxHeight){
     maxHeight = "<br>" + "最大波(予想)：" + forecast_items[num_first].MaxHeight.TsunamiHeight + "m"
   }
-  var content = "<b>" + forecast_items[num_first].Area.Name + "</b>" + firstHeight + maxHeight
+  var content = "<div style='text-align: center;'><b>" + forecast_items[num_first].Area.Name + "</b>" + firstHeight + maxHeight + "</div>"
   return content
 }
 function drawMap(){
@@ -100,7 +100,7 @@ function drawMap(){
 		       weight: 4,
 		       opacity: 1,
 		       fillColor: color,
-		       fillOpacity: 1
+		       fillOpacity: 1,
 		     };
 		 },
 		 onEachFeature: function (feature, layer) {
@@ -130,7 +130,8 @@ function drawMap(){
 		  radius: 6,
 		  color: "black",
 		  fillColor: color,
-		  fillOpacity: 1
+		  fillOpacity: 1,
+		  zIndexOffset: 10000
 		}).addTo(map);
 		// 地図にマーカーを追加
 		marker.bindPopup("<div style='text-align: center;'>" + observation_items[n].Area.Name + stations[s].Name + "<br>第一波の状況：" + stations[s].FirstHeight.Condition + "<br>最大波(観測)：" + stations[s].MaxHeight.TsunamiHeight + "m (" + new Date(stations[s].MaxHeight.DateTime).getDate() + "日 " + new Date(stations[s].MaxHeight.DateTime).getHours() + "時" + new Date(stations[s].MaxHeight.DateTime).getMinutes() + "分)</div>", {
@@ -142,6 +143,8 @@ function drawMap(){
             }
           }
 	  //↓↓震源の位置設定↓↓
+	    console.log(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)))
+	    console.log(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10)))
 	    if(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) >= 18 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) <= 50 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10)) >= 130 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10)) <= 160){
 	    var shingenLatLng = new L.LatLng((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5), (data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10));
 	      var shingenIconImage = L.icon({
