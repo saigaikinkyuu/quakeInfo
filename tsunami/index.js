@@ -70,6 +70,7 @@ function drawMap(){
                color = "#4b0082"
 	       kind_tsunami = "大津波警報"
              }
+	     function firstMaxHeightContent(){
 	     let firstHeight = ""
 	     let maxHeight = ""
 	     if(forecast_items[i].FirstHeight){
@@ -80,8 +81,10 @@ function drawMap(){
 	     if(forecast_items[i].MaxHeight){
 	       maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
 	     }
-             if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
 	     var content = "<b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight
+	     return content
+	     }
+             if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       L.geoJson(data, {
 	         style: function(feature) {
@@ -94,9 +97,8 @@ function drawMap(){
 		       fillOpacity: 1
 		     };
 		 },
-		 onEachFeature: function (feature, layer, content) {
-		   console.log(content)
-		   layer.bindPopup(content);
+		 onEachFeature: function (feature, layer) {
+		   layer.bindPopup(firstMaxHeightContent());
 	         }
 	     }).addTo(map);
 	     });
