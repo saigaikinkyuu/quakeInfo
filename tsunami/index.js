@@ -100,9 +100,9 @@ function drawMap(){
 	       if(forecast_items[i].MaxHeight){
 	         maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
 	       }
-	       content.push("<div style='text-align: center;'><b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight + "</div>")
+	       content.push([forecast_items[i].Area.Name,"<div style='text-align: center;'><b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight + "</div>"])
 	       numArray.push(i)
-             $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(content[i])] + ".geojson", function(data) {
+             $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(content[i][0])] + ".geojson", function(data) {
 	       num_first++
 	       lineTsunami[num_first] = L.geoJson(data, {
 	         style: function(feature) {
