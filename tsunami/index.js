@@ -46,7 +46,7 @@ function drawMap(){
 	  // 新しいペインを作成
 	  var shingenPane = map.createPane('shingenPane');
 	  var lineTsunami = {}
-	  var content = []
+	  var content = /*[]*/ ""
 	  shingenPane.style.zIndex = 100; // Zインデックスを設定
           forecast_items = data.Body.Tsunami.Forecast.Item
           var areaNameArray = [ '北海道太平洋沿岸東部','北海道太平洋沿岸中部','北海道太平洋沿岸西部','北海道日本海沿岸北部','北海道日本海沿岸南部','オホーツク海沿岸','青森県日本海沿岸','青森県太平洋沿岸','陸奥湾','岩手県','宮城県','秋田県','山形県','福島県','茨城県','千葉県九十九里・外房','千葉県内房','東京湾内湾','伊豆諸島','小笠原諸島','相模湾・三浦半島','新潟県上中下越','佐渡','富山県','石川県能登','石川県加賀','福井県','静岡県','愛知県外海','伊勢・三河湾','三重県南部','京都府','大阪府','兵庫県北部','兵庫県瀬戸内海沿岸','淡路島南部','和歌山県','鳥取県','島根県出雲・石見','隠岐','岡山県','広島県','徳島県','香川県','愛媛県宇和海沿岸','愛媛県瀬戸内海沿岸','高知県','山口県日本海沿岸','山口県瀬戸内海沿岸','福岡県瀬戸内海沿岸','福岡県日本海沿岸','有明・八代海','佐賀県北部','長崎県西方','壱岐・対馬','熊本県天草灘沿岸','大分県瀬戸内海沿岸','大分県豊後水道沿岸','宮崎県','鹿児島県東部','種子島・屋久島地方','奄美群島・トカラ列島','鹿児島県西部','沖縄本島地方','大東島地方','宮古島・八重山地方' ]
@@ -98,7 +98,8 @@ function drawMap(){
 	       if(forecast_items[i].MaxHeight){
 	         maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
 	       }
-	       content.push("<div style='text-align: center;'><b>" + forecast_items[num_first].Area.Name + "</b>" + firstHeight + maxHeight + "</div>")
+	       /*content.push("<div style='text-align: center;'><b>" + forecast_items[num_first].Area.Name + "</b>" + firstHeight + maxHeight + "</div>")*/
+	       content = "<div style='text-align: center;'><b>" + forecast_items[num_first].Area.Name + "</b>" + firstHeight + maxHeight + "</div>"
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       num_first++
 	       lineTsunami[num_first] = L.geoJson(data, {
