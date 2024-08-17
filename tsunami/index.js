@@ -69,7 +69,7 @@ function drawMap(){
 	     // areaDataに含まれる値のセットを作成
              let color = ""
 	     kind_tsunami = ""
-	     num_first = i
+	     num_first = 0
              if(forecast_items[i].Category.Kind.Name === "津波予報（若干の海面変動）"){
                color = "#00bfff"
 	       kind_tsunami = "津波予報"
@@ -89,17 +89,18 @@ function drawMap(){
              if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
 	       let firstHeight = ""
 	       let maxHeight = ""
-	       if(forecast_items[num_first].FirstHeight){
-	         firstHeight = "<br>" + forecast_items[num_first].FirstHeight.Condition
+	       if(forecast_items[i].FirstHeight){
+	         firstHeight = "<br>" + forecast_items[i].FirstHeight.Condition
 	       }else {
 	         firstHeight = "<br>" + kind_tsunami
 	       }
-	       if(forecast_items[num_first].MaxHeight){
-	         maxHeight = "<br>" + "最大波(予想)：" + forecast_items[num_first].MaxHeight.TsunamiHeight + "m"
+	       if(forecast_items[i].MaxHeight){
+	         maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
 	       }
 	       var content = "<div style='text-align: center;'><b>" + forecast_items[num_first].Area.Name + "</b>" + firstHeight + maxHeight + "</div>"
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
-	       lineTsunami[i] = L.geoJson(data, {
+	       lineTsunami[n] = L.geoJson(data, {
+		 n++
 	         style: function(feature) {
 		   // areaDataに含まれない場合は、デフォルトのスタイルを適用
 		     return {
