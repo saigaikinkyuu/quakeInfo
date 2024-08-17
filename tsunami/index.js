@@ -47,6 +47,7 @@ function drawMap(){
 	  var shingenPane = map.createPane('shingenPane');
 	  var lineTsunami = {}
 	  var content = []
+	  var numArray = []
 	  var num_tsunami_line = 0
 	  shingenPane.style.zIndex = 100; // Zインデックスを設定
           forecast_items = data.Body.Tsunami.Forecast.Item
@@ -89,7 +90,6 @@ function drawMap(){
 	       kind_tsunami = "大津波警報"
              }
              if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
-             $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       let firstHeight = ""
 	       let maxHeight = ""
 	       if(forecast_items[i].FirstHeight){
@@ -101,6 +101,8 @@ function drawMap(){
 	         maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
 	       }
 	       content.push("<div style='text-align: center;'><b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight + "</div>")
+	       numArray.push(i)
+             $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       num_first++
 	       lineTsunami[num_first] = L.geoJson(data, {
 	         style: function(feature) {
@@ -120,7 +122,7 @@ function drawMap(){
 	     }).addTo(map);
 	     num_tsunami_line++
 	     console.log(num_tsunami_line + "," + content)
-	     lineTsunami[num_tsunami_line].bindPopup(content[num_tsunami_line-1], {
+	     lineTsunami[numArray[num_tsunami_line-1]].bindPopup(content[num_tsunami_line-1], {
 	       closeButton: false,
 	       zIndexOffset: 20000,
 	       maxWidth: 10000
