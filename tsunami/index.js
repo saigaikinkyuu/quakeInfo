@@ -95,6 +95,7 @@ function drawMap(){
 		     };
 		 },
 		 onEachFeature: function (feature, layer, content) {
+		   console.log(content)
 		   layer.bindPopup(content);
 	         }
 	     }).addTo(map);
