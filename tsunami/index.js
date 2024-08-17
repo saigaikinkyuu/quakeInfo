@@ -117,7 +117,7 @@ function drawMap(){
 		   layer.bindPopup(firstMaxHeightContent());
 	         }*/
 	     }).addTo(map);
-	     for(var e = 0;e<contemt.lentgh;e++){
+	     for(var e = 0;e<content.lentgh;e++){
 	     lineTsunami[e].bindPopup(content[e], {
 	       closeButton: false,
 	       zIndexOffset: 20000,
