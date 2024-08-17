@@ -114,11 +114,11 @@ function drawMap(){
 		   layer.bindPopup(firstMaxHeightContent());
 	         }*/
 	     }).addTo(map);
+	     });
 	     lineTsunami.bindPopup("現在のNum:" + i, {
 	       closeButton: false,
 	       zIndexOffset: 20000,
 	       maxWidth: 10000
-	     });
 	     });
 	     }
           }
