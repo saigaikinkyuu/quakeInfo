@@ -24,7 +24,7 @@ function drawMap(){
     .then(response => response.json())
     .then(datas => {
       if(datas[0]){
-        fetch('https://www.jma.go.jp/bosai/tsunami/data/' + datas[1].json)//通常0
+        fetch('https://www.jma.go.jp/bosai/tsunami/data/' + datas[3].json)//通常0
         .then(response => response.json())
         .then(data => {
           var pointFlag = true
