@@ -122,8 +122,8 @@ function drawMap(){
 	         }*/
 	     }).addTo(map);
 	     num_tsunami_line++
-	     console.log(num_tsunami_line + "," + content)
-	     console.log(content[num_tsunami_line][0])
+	     /*console.log(num_tsunami_line + "," + content)
+	     console.log(content[num_tsunami_line][0])*/
 	     lineTsunami[tsunamiArea_line].bindPopup(content_body[content_area.indexOf(tsunamiArea_line)], {
 	       closeButton: false,
 	       zIndexOffset: 20000,
