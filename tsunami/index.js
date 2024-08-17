@@ -102,7 +102,7 @@ function drawMap(){
 	       content.push([forecast_items[i].Area.Name,"<div style='text-align: center;'><b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight + "</div>"])
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(content[i][0])] + ".geojson", function(data) {
 	       num_first++
-	       lineTsunami[num_first] = L.geoJson(data, {
+	       lineTsunami[features[0].properties.name] = L.geoJson(data, {
 	         style: function(feature) {
 		   // areaDataに含まれない場合は、デフォルトのスタイルを適用
 		     return {
@@ -120,7 +120,7 @@ function drawMap(){
 	     }).addTo(map);
 	     num_tsunami_line++
 	     console.log(num_tsunami_line + "," + content)
-	     lineTsunami[num_tsunami_line].bindPopup(content[num_tsunami_line-1], {
+	     lineTsunami[content[num_tsunami_line][0]].bindPopup(content[num_tsunami_line][1], {
 	       closeButton: false,
 	       zIndexOffset: 20000,
 	       maxWidth: 10000
