@@ -99,7 +99,7 @@ function drawMap(){
              }
              if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
-	       L.geoJson(data, {
+	       var lineTsunami = L.geoJson(data, {
 	         style: function(feature) {
 		   // areaDataに含まれない場合は、デフォルトのスタイルを適用
 		     return {
@@ -115,6 +115,12 @@ function drawMap(){
 		   layer.bindPopup(firstMaxHeightContent());
 	         }
 	     }).addTo(map);
+	     let contents = firstMaxHeightContent()
+	     lineTsunami.bindPopup(contents, {
+	       closeButton: false,
+	       zIndexOffset: 20000,
+	       maxWidth: 10000
+	     });
 	     });
 	     }
           }
