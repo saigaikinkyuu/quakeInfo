@@ -102,7 +102,7 @@ function drawMap(){
 	       }
 	       content_area.push(forecast_items[i].Area.Name)
 	       content_body.push("<div style='text-align: center;'><b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight + "</div>")
-             $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[forecast_items[i].Area.Name] + ".geojson", function(data) {
+             $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       num_first++
 	       var tsunamiArea_line = data.features[0].properties.name
 	       lineTsunami[data.features[0].properties.name] = L.geoJson(data, {
