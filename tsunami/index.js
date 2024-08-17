@@ -145,7 +145,7 @@ function drawMap(){
 	  //↓↓震源の位置設定↓↓
 	    console.log(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)))
 	    console.log(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(6,11)))
-	    if(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) >= 18 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) <= 50 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10)) >= 130 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10)) <= 160){
+	    if(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) >= 18 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) <= 50 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(6,11)) >= 130 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(6,11)) <= 160){
 	    var shingenLatLng = new L.LatLng((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5), (data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10));
 	      var shingenIconImage = L.icon({
 	        iconUrl: '../source/shingen.png',
