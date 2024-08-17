@@ -116,7 +116,7 @@ function drawMap(){
 		   layer.bindPopup(firstMaxHeightContent());
 	         }*/
 	     }).addTo(map);
-	     lineTsunami[num_first].bindPopup("現在のNum:" + i, {
+	     lineTsunami[num_first].bindPopup("現在のNum:" + num_first, {
 	       closeButton: false,
 	       zIndexOffset: 20000,
 	       maxWidth: 10000
