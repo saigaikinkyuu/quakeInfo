@@ -46,7 +46,8 @@ function drawMap(){
 	  // 新しいペインを作成
 	  var shingenPane = map.createPane('shingenPane');
 	  var lineTsunami = {}
-	  var content = []
+	  var content_area = []
+	  var content_body = []
 	  var num_tsunami_line = 0
 	  shingenPane.style.zIndex = 100; // Zインデックスを設定
           forecast_items = data.Body.Tsunami.Forecast.Item
@@ -99,10 +100,11 @@ function drawMap(){
 	       if(forecast_items[i].MaxHeight){
 	         maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
 	       }
-	       content.push([forecast_items[i].Area.Name,"<div style='text-align: center;'><b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight + "</div>"])
+	       content_area.push(forecast_items[i].Area.Name)
+	       content_body.push("<div style='text-align: center;'><b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight + "</div>")
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(content[i][0])] + ".geojson", function(data) {
 	       num_first++
-	       console.log(data.features[0].properties.name)
+	       var tsunamiArea_line = data.features[0].properties.name
 	       lineTsunami[data.features[0].properties.name] = L.geoJson(data, {
 	         style: function(feature) {
 		   // areaDataに含まれない場合は、デフォルトのスタイルを適用
@@ -122,7 +124,7 @@ function drawMap(){
 	     num_tsunami_line++
 	     console.log(num_tsunami_line + "," + content)
 	     console.log(content[num_tsunami_line][0])
-	     lineTsunami[content[num_tsunami_line][0]].bindPopup(content[num_tsunami_line][1], {
+	     lineTsunami[tsunamiArea_line].bindPopup(content_body[content_area.indexOf(tsunamiArea_line)], {
 	       closeButton: false,
 	       zIndexOffset: 20000,
 	       maxWidth: 10000
