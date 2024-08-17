@@ -89,6 +89,7 @@ function drawMap(){
 	       kind_tsunami = "大津波警報"
              }
              if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
+             $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       let firstHeight = ""
 	       let maxHeight = ""
 	       if(forecast_items[i].FirstHeight){
@@ -100,7 +101,6 @@ function drawMap(){
 	         maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
 	       }
 	       content.push("<div style='text-align: center;'><b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight + "</div>")
-             $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       num_first++
 	       lineTsunami[num_first] = L.geoJson(data, {
 	         style: function(feature) {
