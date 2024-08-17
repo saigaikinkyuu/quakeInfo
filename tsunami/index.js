@@ -118,7 +118,7 @@ function drawMap(){
 		   layer.bindPopup(firstMaxHeightContent());
 	         }*/
 	     }).addTo(map);
-	     lineTsunami[num_first].bindPopup(content[num_first], {
+	     lineTsunami[num_first].bindPopup(content, {
 	       closeButton: false,
 	       zIndexOffset: 20000,
 	       maxWidth: 10000
