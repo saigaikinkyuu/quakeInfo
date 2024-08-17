@@ -5,15 +5,15 @@ var kind_tsunami = ""
 function firstMaxHeightContent(){
   let firstHeight = ""
   let maxHeight = ""
-  if(forecast_items[i].FirstHeight){
-    firstHeight = "<br>" + forecast_items[i].FirstHeight.Condition
+  if(forecast_items[num_first].FirstHeight){
+    firstHeight = "<br>" + forecast_items[num_first].FirstHeight.Condition
   }else {
     firstHeight = "<br>" + kind_tsunami
   }
-  if(forecast_items[i].MaxHeight){
-    maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
+  if(forecast_items[num_first].MaxHeight){
+    maxHeight = "<br>" + "最大波(予想)：" + forecast_items[num_first].MaxHeight.TsunamiHeight + "m"
   }
-  var content = "<b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight
+  var content = "<b>" + forecast_items[num_first].Area.Name + "</b>" + firstHeight + maxHeight
   return content
 }
 function drawMap(){
