@@ -157,7 +157,7 @@ function drawMap(){
 	    console.log(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(6,11)))
 	    }
 	    if(Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) >= 18 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5)) <= 50 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(6,11)) >= 130 && Number((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(6,11)) <= 160){
-	    var shingenLatLng = new L.LatLng((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5), (data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(7,10));
+	    var shingenLatLng = new L.LatLng((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5), (data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(6,11));
 	      var shingenIconImage = L.icon({
 	        iconUrl: '../source/shingen.png',
 	        iconSize: [40, 40],
