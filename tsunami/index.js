@@ -1,4 +1,21 @@
 var map
+var forecast_items
+var num_first
+var kind_tsunami = ""
+function firstMaxHeightContent(){
+  let firstHeight = ""
+  let maxHeight = ""
+  if(forecast_items[i].FirstHeight){
+    firstHeight = "<br>" + forecast_items[i].FirstHeight.Condition
+  }else {
+    firstHeight = "<br>" + kind_tsunami
+  }
+  if(forecast_items[i].MaxHeight){
+    maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
+  }
+  var content = "<b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight
+  return content
+}
 function drawMap(){
   map = L.map('map', {
     zoomControl: false,
@@ -53,7 +70,8 @@ function drawMap(){
           for(var i = 0;i<forecast_items.length;i++){
 	     // areaDataに含まれる値のセットを作成
              let color = ""
-	     let kind_tsunami = ""
+	     kind_tsunami = ""
+	     num_first = i
              if(forecast_items[i].Category.Kind.Name === "津波予報（若干の海面変動）"){
                color = "#00bfff"
 	       kind_tsunami = "津波予報"
@@ -70,20 +88,6 @@ function drawMap(){
                color = "#4b0082"
 	       kind_tsunami = "大津波警報"
              }
-	     function firstMaxHeightContent(){
-	     let firstHeight = ""
-	     let maxHeight = ""
-	     if(forecast_items[i].FirstHeight){
-	       firstHeight = "<br>" + forecast_items[i].FirstHeight.Condition
-	     }else {
-	       firstHeight = "<br>" + kind_tsunami
-	     }
-	     if(forecast_items[i].MaxHeight){
-	       maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
-	     }
-	     var content = "<b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight
-	     return content
-	     }
              if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       L.geoJson(data, {
