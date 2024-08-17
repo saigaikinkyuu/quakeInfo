@@ -110,10 +110,10 @@ function drawMap(){
 		       fillOpacity: 1,
 		       pane: "linePane"
 		     };
-		 },
+		 }/*,
 		 onEachFeature: function (feature, layer) {
 		   layer.bindPopup(firstMaxHeightContent());
-	         }
+	         }*/
 	     }).addTo(map);
 	     let contents = firstMaxHeightContent()
 	     lineTsunami.bindPopup(contents, {
