@@ -124,7 +124,8 @@ function drawMap(){
 	       maxWidth: 10000
 	     });
 	     }*/
-	     lineTsunami[num_first].bindPopup(num_first, {
+	     console.log(content)
+	     lineTsunami[num_first].bindPopup(i, {
 	       closeButton: false,
 	       zIndexOffset: 20000,
 	       maxWidth: 10000
