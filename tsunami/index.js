@@ -53,19 +53,35 @@ function drawMap(){
           for(var i = 0;i<forecast_items.length;i++){
 	     // areaDataに含まれる値のセットを作成
              let color = ""
+	     let kind_tsunami = ""
              if(forecast_items[i].Category.Kind.Name === "津波予報（若干の海面変動）"){
                color = "#00bfff"
+	       kind_tsunami = "津波予報"
              }else if(forecast_items[i].Category.Kind.Name === "津波注意報"){
                color = "yellow"
+	       kind_tsunami = "津波注意報"
              }else if(forecast_items[i].Category.Kind.Name === "津波警報"){
                color = "#ff0000"
+	       kind_tsunami = "津波警報"
              }else if(forecast_items[i].Category.Kind.Name === "大津波警報：発表"){
                color = "#4b0082"
+	       kind_tsunami = "大津波警報"
              }else {
                color = "#4b0082"
+	       kind_tsunami = "大津波警報"
              }
+	     let firstHeight = ""
+	     let maxHeight = ""
+	     if(forecast_items[i].FirstHeight){
+	       firstHeight = "<br>" + forecast_items[i].FirstHeight.Condition
+	     }else {
+	       firstHeight = "<br>" + kind_tsunami
+	     }
+	     if(forecast_items[i].MaxHeight){
+	       maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
+	     }
              if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
-	     let content = "<b>" + forecast_items[i].Area.Name + "</b><br>" + forecast_items[i].FirstHeight.Condition + "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
+	     let content = "<b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       L.geoJson(data, {
 	         style: function(feature) {
