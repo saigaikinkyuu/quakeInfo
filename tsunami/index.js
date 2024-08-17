@@ -81,14 +81,14 @@ function drawMap(){
 	       maxHeight = "<br>" + "最大波(予想)：" + forecast_items[i].MaxHeight.TsunamiHeight + "m"
 	     }
              if(areaNameArray.indexOf(forecast_items[i].Area.Name) !== -1){
-	     let content = "<b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight
+	     var content = "<b>" + forecast_items[i].Area.Name + "</b>" + firstHeight + maxHeight
              $.getJSON("https://geoshape.ex.nii.ac.jp/jma/resource/AreaTsunami/20240520/" + areaNumArray[areaNameArray.indexOf(forecast_items[i].Area.Name)] + ".geojson", function(data) {
 	       L.geoJson(data, {
 	         style: function(feature) {
 		   // areaDataに含まれない場合は、デフォルトのスタイルを適用
 		     return {
 		       color: color,
-		       weight: 1.5,
+		       weight: 4,
 		       opacity: 1,
 		       fillColor: color,
 		       fillOpacity: 1
