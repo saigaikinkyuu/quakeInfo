@@ -117,13 +117,18 @@ function drawMap(){
 		   layer.bindPopup(firstMaxHeightContent());
 	         }*/
 	     }).addTo(map);
-	     for(var e = 0;e<content.lentgh;e++){
+	     /*for(var e = 0;e<content.lentgh;e++){
 	     lineTsunami[e].bindPopup(content[e], {
 	       closeButton: false,
 	       zIndexOffset: 20000,
 	       maxWidth: 10000
 	     });
-	     }
+	     }*/
+	     lineTsunami[num_first].bindPopup(num_first, {
+	       closeButton: false,
+	       zIndexOffset: 20000,
+	       maxWidth: 10000
+	     });
 	     });
 	     }
           }
