@@ -163,10 +163,10 @@ function drawMap(){
 	    var shingenLatLng = new L.LatLng((data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(1,5), (data.Body.Earthquake[0].Hypocenter.Area.Coordinate).slice(6,11));
 	      var shingenIconImage = L.icon({
 	        iconUrl: '../source/shingen.png',
-	        iconSize: [20, 20],
-	        iconAnchor: [10, 10],
-	        popupAnchor: [0, -20],
-	        zIndexOffset: 10000,
+	        iconSize: [40, 40],
+	        iconAnchor: [20, 20],
+	        popupAnchor: [0, -40],
+	        zIndexOffset: 100,
 		pane: "shingenPane"
 	      });
 	    var shingenIcon = L.marker(shingenLatLng, {icon: shingenIconImage }).addTo(map);
