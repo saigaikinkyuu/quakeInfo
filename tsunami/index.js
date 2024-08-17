@@ -66,6 +66,8 @@ function drawMap(){
 		};
 	      }
 	    }).addTo(map);
+	    L.tileLayer(
+                'https://www.jma.go.jp/bosai/himawari/data/nowc/20240528131000/none/20240528131500/surf/hrpns/{z}/{x}/{y}.png', {}).addTo(map);
 	  });
           for(var i = 0;i<forecast_items.length;i++){
 	     // areaDataに含まれる値のセットを作成
