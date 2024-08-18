@@ -2,8 +2,6 @@ var map
 var forecast_items
 var num_first
 var kind_tsunami = ""
-function firstMaxHeightContent(){
-}
 function drawMap(){
   map = L.map('map', {
     zoomControl: false,
@@ -24,7 +22,7 @@ function drawMap(){
     .then(response => response.json())
     .then(datas => {
       if(datas[0]){
-        fetch('https://www.jma.go.jp/bosai/tsunami/data/' + datas[13].json)//通常0
+        fetch('https://www.jma.go.jp/bosai/tsunami/data/' + datas[0].json)//通常0
         .then(response => response.json())
         .then(data => {
           var pointFlag = true
@@ -192,3 +190,7 @@ function drawMap(){
     })
 }
 drawMap()
+window.onload = function(){
+  document.getElementById("container").style.display = "block"
+  $('#reading').fadeOut(700);
+}
