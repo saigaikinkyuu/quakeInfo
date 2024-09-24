@@ -155,7 +155,11 @@ function drawMap(){
 		  pane: 'markerPane'
 		}).addTo(map);
 		// 地図にマーカーを追加
-		marker.bindPopup("<div style='text-align: center;'>" + observation_items[n].Area.Name + stations[s].Name + "<br>第一波の状況：" + stations[s].FirstHeight.Condition + "<br>最大波(観測)：" + stations[s].MaxHeight.TsunamiHeight + "m (" + new Date(stations[s].MaxHeight.DateTime).getDate() + "日 " + new Date(stations[s].MaxHeight.DateTime).getHours() + "時" + new Date(stations[s].MaxHeight.DateTime).getMinutes() + "分)</div>", {
+		var observe_first_condition = "不明(欠損)"
+		if(stations[s].FirstHeight.Condition){
+		  observe_first_condition = stations[s].FirstHeight.Condition
+		}
+		marker.bindPopup("<div style='text-align: center;'>" + observation_items[n].Area.Name + stations[s].Name + "<br>第一波の状況：" + observe_first_condition + "<br>最大波(観測)：" + stations[s].MaxHeight.TsunamiHeight + "m (" + new Date(stations[s].MaxHeight.DateTime).getDate() + "日 " + new Date(stations[s].MaxHeight.DateTime).getHours() + "時" + new Date(stations[s].MaxHeight.DateTime).getMinutes() + "分)</div>", {
 		  closeButton: false,
 		  zIndexOffset: 20000,
 		  maxWidth: 10000
