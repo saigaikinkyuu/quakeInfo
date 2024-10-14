@@ -40,18 +40,19 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
       var seconds = ('0' + date.getSeconds()).slice(-2); // 秒を2桁にする
       return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
     }
+    let maxInt_data = ""
     if(data.Body.Intensity){
       if(data.Body.Intensity.Observation){
         if(data.Body.Intensity.Observation.MaxInt){
-          let maxInt_data = data['Body']['Intensity']["Observation"]['MaxInt'];
+          axInt_data = data['Body']['Intensity']["Observation"]['MaxInt'];
         }else {
-          let maxInt_data = "情報なし"
+          maxInt_data = "情報なし"
         }
       }else {
-        let maxInt_data = "情報なし"
+        maxInt_data = "情報なし"
       }
     }else {
-      let maxInt_data = "情報なし"
+      maxInt_data = "情報なし"
     }
     var maxIntText = maxInt_data == "1" ? "1" : maxInt_data == "2" ? "2" : maxInt_data == "3" ? "3" : maxInt_data == "4" ? "4" :
                      maxInt_data == "5-" ? "5弱" : maxInt_data == "5+" ? "5強" : maxInt_data == "6-" ? "6弱" :
