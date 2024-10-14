@@ -21,9 +21,7 @@ fetch('https://www.jma.go.jp/bosai/quake/data/list.json')
         p_element.setAttribute("id", "list_p");
         img_element.setAttribute("id", "list_img");
         div_element.setAttribute("id", "list_div");
-        if(maxi !== "--"){
-          div_element.setAttribute("onclick", "chengeMap("+i+")");
-        }
+        div_element.setAttribute("onclick", "chengeMap("+i+")");
         if(maxi !== "--"){
           img_element.setAttribute("src", "source/"+maxi+".png");
         }else {
