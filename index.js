@@ -59,6 +59,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     var longitude = longitudeHypo[1]
     var issueTime = formatDate(new Date(data["Control"]["DateTime"]))
     console.log(latitude + "" + longitude)
+        if(data.Body.Intensity.Observation.Pref){
             // data 内の Pref をループ
             $.each(data.Body.Intensity.Observation.Pref, function(prefIndex, pref) {
                 // Pref 内の Area をループ
@@ -82,7 +83,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
                     });
                 });
             });
-    
+        }
     var shingenLatLng = new L.LatLng(latitude, longitude);
     var shingenIconImage = L.icon({
         iconUrl: 'source/shingen.png',
