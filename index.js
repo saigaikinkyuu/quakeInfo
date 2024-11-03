@@ -44,7 +44,7 @@ $.getJSON("https://www.jma.go.jp/bosai/quake/data/list.json", function (datas) {
     if(data.Body.Intensity){
       if(data.Body.Intensity.Observation){
         if(data.Body.Intensity.Observation.MaxInt){
-          axInt_data = data['Body']['Intensity']["Observation"]['MaxInt'];
+          maxInt_data = data['Body']['Intensity']["Observation"]['MaxInt'];
         }else {
           maxInt_data = "情報なし"
         }
