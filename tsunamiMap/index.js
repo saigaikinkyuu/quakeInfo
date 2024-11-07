@@ -22,7 +22,7 @@ function drawMap(){
     .then(response => response.json())
     .then(datas => {
       if(datas[0].rdt){
-        document.getElementById("rdt").textContent = new Date(datas[0].rdt).getFullYear() + "年" + ("0" + (new Date(datas[0].rdt).getMonth() + 1)).slice(-2) + "月" + ("0" + new Date(datas[0].rdt).getDate()).slice(-2) + "日 " + ("0" + new Date(datas[0].rdt).getHours()).slice(-2) + "分" + ("0" + new Date(datas[0].rdt).getMinutes()).slice(-2)
+        document.getElementById("rdt").textContent = "発表：" + new Date(datas[0].rdt).getFullYear() + "年" + ("0" + (new Date(datas[0].rdt).getMonth() + 1)).slice(-2) + "月" + ("0" + new Date(datas[0].rdt).getDate()).slice(-2) + "日 " + ("0" + new Date(datas[0].rdt).getHours()).slice(-2) + "時" + ("0" + new Date(datas[0].rdt).getMinutes()).slice(-2) + "分"
       }
       if(datas[0]){
         fetch('https://www.jma.go.jp/bosai/tsunami/data/' + datas[0].json)//通常0
